@@ -1,0 +1,12 @@
+node {
+    stage('Hola') {
+        echo 'Hola'
+    }
+    stage('Nombre') {
+        echo 'Mi nombre es Enrique'
+    }
+    stage('Edad') {
+        echo "Tengo 24 años"
+        
+    }
+}
