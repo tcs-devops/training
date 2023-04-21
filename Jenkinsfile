@@ -10,6 +10,14 @@ pipeline {
                           userRemoteConfigs: [[url: 'http://github.com/jenkins-docs/simple-java-maven-app.git']]])
             }
         }
+        stage('Build'){
+        
+      steps{
+          sh '''ls 
+             pwd
+             '''     
+      }
+        }
         stage('Nombre') {
             steps {
                 echo 'Mi nombre es Enrique Guzman'
