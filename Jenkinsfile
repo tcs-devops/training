@@ -3,9 +3,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Hola') {
+        stage('Checkout') {
             steps {
-                echo 'Hola Amigos'
+                chekout ([$class: 'GitSCM',
+                          branches: [[name: '*/jenkins-session' ]],
+                          userRemoteConfigs: [[url: 'http://github.com/jenkins-docs/simple-java-maven-app.git]]])
             }
         }
         stage('Nombre') {
