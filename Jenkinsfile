@@ -8,7 +8,7 @@ pipeline {
     
       steps {
           checkout ([$class: 'GitSCM',
-                     branches: [[name:  '/jenkins-session' ]],
+                     branches: [[name:  '*/jenkins-session' ]],
                      userRemoteConfigs: [[url: 'https://github.com/tcs-devops/training.git' ]]])
       }    
     }
