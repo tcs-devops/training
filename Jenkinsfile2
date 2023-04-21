@@ -12,8 +12,9 @@ pipeline {
         
         stage("Test") {
             steps {
-                echo "Testing"
-                echo "Testing finished"
+            checkout ([$class: 'GitSCM',
+            branches: [[name: '*/jenkins-session' ]],
+            userRemoteConfigs: [[url: 'https://github.com/jenkins-docs/simple-java-maven-app.git]]])
                 
             }
         }
