@@ -1,3 +1,4 @@
+//DECLARATIVE PIPELINE
 pipeline {
     agent any
 
