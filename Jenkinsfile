@@ -4,7 +4,7 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps{
-				checkout([$class: 'GitSCM',
+				checkout([$name: 'GitSCM',
 				 branches: [['*/master']],
 				 userRemoteConfigs: [[url: 'https://github.com/jenkins-docs/simple-java-maven-app.git']]])
 			}
