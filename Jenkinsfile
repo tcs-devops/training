@@ -7,7 +7,7 @@ pipeline {
             steps {
                 chekout ([$class: 'GitSCM',
                           branches: [[name: '*/jenkins-session' ]],
-                          userRemoteConfigs: [[url: 'http://github.com/jenkins-docs/simple-java-maven-app.git]]])
+                          userRemoteConfigs: [[url: 'http://github.com/jenkins-docs/simple-java-maven-app.git']]])
             }
         }
         stage('Nombre') {
