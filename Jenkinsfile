@@ -2,19 +2,18 @@ pipeline {
 	agent any
 	
 	stages {
-		stage('Hello') {
-			steps {
-				echo 'Hello World'
+		stage('Checkout') {
+			steps{
+				checkout([$class: 'GitSCM',
+				 branches: [['*/master']],
+				 userRemoteConfigs: [[url: 'https://github.com/jenkins-docs/simple-java-maven-app.git']]])
 			}
 		}
-		stage('Name') {
+		stage('Build') {
 			steps {
-				echo 'JDR'
-			}
-		}
-		stage('Code') {
-			steps {
-				echo '25554'
+				sh '''ls
+				pwd
+				'''
 			}
 		}
 	}
