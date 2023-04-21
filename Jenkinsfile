@@ -15,9 +15,11 @@ pipeline {
     stage('Build'){
         
       steps{
+        withMaven(maven: 'm3'){
+          sh 'mvn clean install'
+        }
           sh '''ls 
-             pwd
-             mvn clean install
+            pwd
              '''     
       }
     }
