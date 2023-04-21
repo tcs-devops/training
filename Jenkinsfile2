@@ -1,3 +1,4 @@
+//
 node {
     stage('Hola') {
         echo 'Hola'
