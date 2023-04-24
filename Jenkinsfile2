@@ -1,5 +1,10 @@
 pipeline {
          agent any
+         
+         tools{
+                  maven 'm3'
+         }
+         
          stages {
                  stage('Checkout'){
                      steps{
@@ -11,6 +16,7 @@ pipeline {
                  stage('Build') {
                  steps {
                      echo 'Starting to build the App.'
+                     mvn clean install
                  }
                  }
                  stage('Test') {
