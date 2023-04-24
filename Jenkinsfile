@@ -7,6 +7,12 @@ pipeline {
   }
   
   stages {
+    
+    stage('Saludo') {
+      steps {
+      echo 'Hola amigos'
+      } 
+    }
    
     stage('Checkout') {
     
