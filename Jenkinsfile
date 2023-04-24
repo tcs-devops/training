@@ -9,8 +9,23 @@ pipeline {
   stages {
     
     stage('Saludo') {
+      
       steps {
       echo 'Hola amigos'
+      } 
+    }
+    
+    stage('Nombre') {
+      
+      steps {
+      echo 'Mi nombre es Enrique'
+      } 
+    }
+    
+    stage('Edad') {
+      
+      steps {
+      echo 'Tengo 24 años'
       } 
     }
    
