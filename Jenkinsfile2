@@ -16,7 +16,7 @@ pipeline {
                  stage('Build') {
                  steps {
                      echo 'Starting to build the App.'
-                     mvn clean install
+                     sh 'mvn clean install'
                  }
                  }
                  stage('Test') {
