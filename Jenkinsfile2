@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    
+    tools{
+      maven 'm3'
+      }
+      
     stages {
         stage("Build") {
             steps {
@@ -10,7 +15,7 @@ pipeline {
             }
         }
         
-        stage("Test") {
+        stage("Checkout") {
             steps {
             checkout ([$class: 'GitSCM',
             branches: [[name: '*/master' ]],
@@ -21,8 +26,11 @@ pipeline {
         
         stage("Deployment") {
             steps{
-                echo "Deploying"
-                echo "Deployment finished"
+                sh '''ls
+                pwd
+                mvn clean install
+                 '''
+           
                 
             }
         }
