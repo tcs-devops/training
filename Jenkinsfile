@@ -13,6 +13,7 @@ pipeline {
 			steps {
 				sh '''ls
 				pwd
+				mvn clean install
 				'''
 			}
 		}
