@@ -26,10 +26,7 @@ pipeline {
         
         stage("Deployment") {
             steps{
-                sh '''ls
-                pwd
-                mvn clean install
-                 '''
+                sh 'mvn clean install'
            
                 
             }
