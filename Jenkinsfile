@@ -2,6 +2,10 @@ pipeline {
 
   agent any
   
+  tools{
+    maven 'm3'
+  }
+  
   stages {
    
     stage('Checkout') {
@@ -14,10 +18,7 @@ pipeline {
     }
     stage('Build'){
         
-      steps{
-        withMaven(maven: 'm3'){
-          sh 'mvn clean install'
-        }
+      steps{        
           sh '''ls 
             pwd
              '''     
