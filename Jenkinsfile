@@ -14,21 +14,6 @@ pipeline {
       echo 'Hola amigos'
       } 
     }
-    
-    stage('Nombre') {
-      
-      steps {
-      echo 'Mi nombre es Enrique'
-      } 
-    }
-    
-    stage('Edad') {
-      
-      steps {
-      echo 'Tengo 24 años'
-      } 
-    }
-   
     stage('Checkout') {
     
       steps {
@@ -44,6 +29,13 @@ pipeline {
             pwd
             mvn clean install
              '''     
+      }
+    }
+    
+    stage('Test') {
+    
+      steps{
+          sh 'mvn test'
       }
     }
   }
