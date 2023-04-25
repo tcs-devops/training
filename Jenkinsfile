@@ -21,5 +21,12 @@ pipeline {
 				'''
 			}
 		}
+		stage('Testing'){
+			post {
+				always {
+					junit '**/target/surefire-reports/*.xml'
+				}
+			} 
+		}
 	}
 }
