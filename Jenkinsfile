@@ -22,6 +22,9 @@ pipeline {
 			}
 		}
 		stage('Testing'){
+			steps {
+				echo 'Results'
+			}
 			post {
 				always {
 					junit '**/target/surefire-reports/*.xml'
