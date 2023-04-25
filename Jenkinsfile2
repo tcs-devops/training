@@ -17,13 +17,17 @@ pipeline {
                  steps {
                      echo 'Starting to build the App.'
                      sh 'mvn clean install'
-                     sh 'mvn surefire-report:report'
                  }
                  }
                  stage('Test') {
                  steps {
-                    input('Do you want to proceed?')
+                    sh 'mvn test'
                  }
+                 post{
+                    always{
+                           junit 'target/surefire-reports/*xml'
+                           }
+                    }
                  }
                  stage('Deploy') {
                  parallel { 
