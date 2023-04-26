@@ -41,9 +41,10 @@ pipeline {
       
       
       stage('Static Code Aanalysis')
-      {
+      { steps {
          sh 'mvn clean install pmd:pmd findbugs:findbugs checkstyle:checkstyle'
          }
+       }
     }    
  
  
