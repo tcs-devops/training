@@ -36,9 +36,9 @@ pipeline {
 
         stage('Static Analysis'){
             steps {
-                sh 'mvn pmd:pmd'
-                sh 'mvn checkstyle:checkstyle'
-                sh 'mvn findbugs:findbugs'
+                bat 'mvn pmd:pmd'
+                bat 'mvn checkstyle:checkstyle'
+                bat 'mvn findbugs:findbugs'
             }
         }
 
