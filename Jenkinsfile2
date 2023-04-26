@@ -23,6 +23,8 @@ pipeline {
                  steps {
                     sh 'mvn test'
                  }
+                 }
+                 stage('Post'){
                  post{
                     always{
                            junit 'target/surefire-reports/*xml'
