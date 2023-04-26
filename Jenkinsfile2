@@ -35,7 +35,7 @@ pipeline {
                  steps{
                           post{
                              always{
-                                    junit 'target/surefire-reports/*.xml'
+                                    'build/test-results/test/*.xml'
                                     archiveArtifacts artifacts: '**/*.xml'
                                     archiveArtifacts artifacts: '**/*.jar'
                                     }
