@@ -2,67 +2,74 @@ pipeline{
   agent any
   
   tools{
-  maven 'm3'
+      maven 'm3'
   }
   
   stages{
   
-    stage ('Hello'){
-      steps{
-      echo 'Hi all'
+      stage ('Hello'){
+          steps{
+              echo 'Hi all'
+          }
       }
-    }
-    stage ('Good morning'){
-      steps{
-      echo 'So good so good so good' 
+      
+      stage ('Good morning'){
+          steps{
+              echo 'So good so good so good' 
+          }
       }
-    }
-    stage ('Bye'){
-      steps{
-      echo 'Good night'
+      
+      stage ('Bye'){
+          steps{
+              echo 'Good night'
+          }
       }
-    }
-    stage('Checkout') {
-    
-      steps {
-          checkout ([$class: 'GitSCM',
-                     branches: [[name:  '*/master' ]],
-                     userRemoteConfigs: [[url: 'https://github.com/jenkins-docs/simple-java-maven-app.git' ]]])
-      }    
-    }
-    stage('Build'){
-        
-      steps{        
-          sh '''ls 
-            pwd
-            mvn clean install
-             '''     
+      
+      stage('Checkout') {
+          steps {
+              checkout ([$class: 'GitSCM',
+                          branches: [[name:  '*/master' ]],
+                          userRemoteConfigs: [[url: 'https://github.com/jenkins-docs/simple-java-maven-app.git' ]]])
+          }    
       }
-    }
-    stage('Test') {
-    
-      steps{
-          sh 'mvn test'
+      
+      stage('Build'){
+          steps{        
+              sh '''ls 
+              pwd
+              mvn clean install
+              '''     
+          }
       }
-    } 
-    stage('PMD checkstyle and findbugs'){
-      steps {
-         sh 'mvn clean install' 
-         sh 'mvn pmd:pmd' 
-         sh 'findbugs:findbugs' 
-         sh 'checkstyle:checkstyle'
+      
+      stage('Test') {
+          steps{
+              sh 'mvn test'
+          }
       }
-    }
-    stage('Reports') {
-        steps{
-            echo 'Post reports'
-        }
-        post {
-            always {
-                junit 'target/surefire-reports/*.xml'
-                archiveArtifacts artifacts: '**/*.xml'
-                archiveArtifacts artifacts: '**/*.jar'
-            }
-        }
-    }
+      
+      stage('PMD checkstyle and findbugs'){
+          steps {
+              sh 'mvn clean install' 
+              sh 'mvn pmd:pmd' 
+              sh 'findbugs:findbugs' 
+              sh 'checkstyle:checkstyle'
+          }
+      }
+      
+      stage('Reports') {
+          steps{
+              echo 'Post reports'
+          }
+          post {
+              always {
+                  junit 'target/surefire-reports/*.xml'
+                  archiveArtifacts artifacts: '**/*.xml'
+                  archiveArtifacts artifacts: '**/*.jar'
+              }
+          }
+      }
+      
+      
+  }    
 }
