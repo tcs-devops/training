@@ -35,11 +35,16 @@ pipeline {
         }
 
         stage('Post'){
-            post {
-                always {
+            steps {
+                 post {
+                    always {
                     junit 'target/surefire-reports/*.xml'
                 }
+                   
+
             }
+            
         }
     }
+}
 }
