@@ -36,13 +36,13 @@ pipeline {
 
         stage('Post'){
             steps{
-
+                echo 'Post stage'
             }
-                post {
-                    always {
-                    junit 'target/surefire-reports/*.xml'
-                    }
+            post {
+                always {
+                junit 'target/surefire-reports/*.xml'
                 }
+            }
         }
 }
 }
