@@ -52,8 +52,8 @@ pipeline{
           steps {
               sh 'mvn clean install' 
               sh 'mvn pmd:pmd' 
-              sh 'findbugs:findbugs' 
-              sh 'checkstyle:checkstyle'
+              sh 'mvn findbugs:findbugs' 
+              sh 'mvn checkstyle:checkstyle'
           }
       }
       
