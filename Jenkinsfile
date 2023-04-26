@@ -25,6 +25,18 @@ pipeline {
 			steps {
 				echo 'Results'
 			}
+		}
+		stage('PMD and Findbugs check') {
+			steps {
+				sh 'mvn clean install pmd:pmd'
+				sh 'mvn clean install checkstyle:checkstyle'
+				sh 'mvn clean install findbugs:findbugs'
+			}
+		}
+		stage('Reports post') {
+			steps {
+				echo 'post'
+			}
 			post {
 				always {
 					archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
