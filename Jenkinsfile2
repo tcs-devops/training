@@ -26,6 +26,7 @@ pipeline {
                  }
                  stage('PMD Checkstyle & Findbugs'){
                     sh 'mvn pmd:pmd'
+                    sh 'mvn checkstyle:checkstyle'
                  }
                  stage('Post'){
                  steps{
