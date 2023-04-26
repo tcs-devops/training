@@ -34,6 +34,14 @@ pipeline {
             }
         }
 
+        stage('Static Analysis'){
+            steps {
+                sh 'mvn pmd:pmd'
+                sh 'mvn checkstyle:checkstyle'
+                sh 'mvn findbugs:findbugs'
+            }
+        }
+
         stage('Post'){
             steps{
                 echo 'Post stage'
