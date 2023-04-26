@@ -33,6 +33,7 @@ pipeline {
                  }
                  stage('Post'){
                  steps{
+                 }
                           post{
                              always{
                                     'build/test-results/test/*.xml'
@@ -40,7 +41,6 @@ pipeline {
                                     archiveArtifacts artifacts: '**/*.jar'
                                     }
                              }
-                 }
                  }
                  stage('Deploy') {
                  parallel { 
