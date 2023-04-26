@@ -40,6 +40,7 @@ pipeline {
                 sh 'mvn pmd:pmd'
                 sh 'mvn checkstyle:checkstyle'
                 sh 'mvn findbugs:findbugs'
+                recordIssues(tools: [checkStyle(pattern: 'target/checkstyle-result.xml'), pmdParser(pattern: 'target/pmd.xml'), findBugs(pattern: 'target/findbugsXml.xml',useRankAsPriority:true)])
             }
         }
 
