@@ -37,8 +37,13 @@ pipeline {
           steps{ 
                    sh 'mvn test'
           }     
-      }                            
-    
+      }
+      
+      
+      stage('Static Code Aanalysis')
+      {
+         sh 'mvn clean install pmd:pmd findbugs:findbugs checkstyle:checkstyle'
+         }
     }    
  
  
