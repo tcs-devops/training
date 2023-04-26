@@ -25,11 +25,13 @@ pipeline {
                  }
                  }
                  stage('Post'){
-                 post{
-                    always{
-                           junit 'target/surefire-reports/*xml'
-                           }
-                    }
+                 steps{
+                          post{
+                             always{
+                                    junit 'target/surefire-reports/*xml'
+                                    }
+                             }
+                 }
                  }
                  stage('Deploy') {
                  parallel { 
