@@ -43,6 +43,7 @@ pipeline {
                     
                     junit 'target/surefire-reports/*.xml'
                     archiveArtifacts artifacts: '**/*.xml'
+                    archiveArtifacts artifacts: '**/*.jar'
                 }
             }
         }
