@@ -32,6 +32,9 @@ pipeline {
                  }
                  }
                  stage('Post'){
+                 steps{
+                  echo 'Post'
+                  }
                           post{
                              always{
                                     'build/test-results/test/*.xml'
