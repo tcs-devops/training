@@ -45,22 +45,24 @@ pipeline{
           sh 'mvn test'
       }
     } 
-    stage('Static analysis')
-      { steps {
+    stage('PMD checkstyle and findbugs'){
+      steps {
          sh 'mvn clean install' 
          sh 'mvn pmd:pmd' 
          sh 'findbugs:findbugs' 
          sh 'checkstyle:checkstyle'
       }
     }
-    
-  }
-  
-  post {
-    always {                   
-        junit 'target/surefire-reports/*.xml' 
-        archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-        junit 'build/reports/**/*.xml
+    stage('Reports') {
+        steps{
+            echo 'Post reports'
+        }
+        post {
+            always {
+                junit 'target/surefire-reports/*.xml' 
+                archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+                junit 'build/reports/**/*.xml
+            }
+        }
     }
-  }
 }
