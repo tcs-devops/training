@@ -40,7 +40,7 @@ pipeline {
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'testresult.txt'
+                    archiveArtifacts artifacts: 'target/surefire-libs/*.xml'
                     junit 'target/surefire-reports/*.xml'
                 }
             }
