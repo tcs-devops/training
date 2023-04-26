@@ -47,16 +47,22 @@ pipeline{
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
+      }
      }
-    }
-   } 
+    } 
     stage('Static analysis')
       { steps {
          sh 'mvn clean install' 
          sh 'mvn pmd:pmd' 
          sh 'findbugs:findbugs' 
          sh 'checkstyle:checkstyle'
-         }
-       }
+      }
+    }
+    
   }
+  
+  post {
+    always {
+        archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+        junit 'build/reports/**/*.xml
 }
