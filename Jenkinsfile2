@@ -40,6 +40,7 @@ pipeline {
                                     junit 'target/surefire-reports/*.xml'
                                     archiveArtifacts artifacts: '**/*.xml'
                                     archiveArtifacts artifacts: '**/*.jar'
+                                    recordIssues(tools: [checkStyle(pattern: 'target/checkstyle-result.xml'), pmdParser(pattern: 'target/pmd.xml'), findBugs(pattern: 'target/findbugsXml.xml',useRankAsPriority:true)])
                                     }
                              }
                  }
