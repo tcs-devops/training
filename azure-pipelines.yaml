@@ -14,14 +14,15 @@ stages:
 - stage: Hello
   jobs:
   - job: 
-    steps:
-    - bash: echo "Hi all"
+    -script: echo Hi all
+     displayName: 'Run a one-line-script'
   
   stage: Good morning
   - job: 
     steps:
-    - bash: echo "So good, so good, so good"
-  
+    -script: echo so good, so good, so good
+     displayName: 'Run a one-line-script'
+     
   stage: Bye
   - job: 
     steps:
