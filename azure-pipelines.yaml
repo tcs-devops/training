@@ -1,5 +1,5 @@
 trigger: RobertoRamirez
-   
+pool: vmImage: ubuntu-latest
 
 stages:
 - stage: Build
@@ -10,7 +10,7 @@ stages:
       echo "Building"
       echo "Building finished"
 
- - stage: maven test
+ - stage: Install maven
    jobs:
    - job: test
      steps:
@@ -19,7 +19,28 @@ stages:
        mavenPOMFile: 'pom.xml'
        mavenOptions:'-Xmx3072m' 
        testResultsFiles: '**/surefire-reports/TEST-*.xml' 
-       javaHomeOption: 'JDKVersion' 
+       javaHomeOption: 'JDKVersion'
+       jdkVersionOption: '1.11'
+       jdkArchitectureOption: 'x64'
        mavenVersionOption: 'Default'
-       publishResultFiles: '**/surefire-reports/TEST-*.xml'
+       publishResultFiles: true
+       testResultsFiles: '**/surefire-reports/TEST-*.xml'
        goals: 'package' 
+
+- stage: Deployment
+  jobs:
+  - job: Deploying
+    steps:
+    - script: mvn clean install
+
+- stage: Test
+  jobs:
+  - job: Deploying
+    steps:
+    - script: mvn test
+
+- stage: Static Code Analysis
+  Jobs:
+  - Job: Analysis
+    steps:
+    - script: mvn pmd:pmd findbugs:findbugs checkstyle:checkstyle
