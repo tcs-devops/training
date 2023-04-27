@@ -31,6 +31,7 @@ pipeline {
 				sh 'mvn clean install pmd:pmd'
 				sh 'mvn clean install checkstyle:checkstyle'
 				sh 'mvn clean install findbugs:findbugs'
+				recordIssues(tools: [checkStyle(pattern: 'target/checkstyle-result.xml'), pmdParser(pattern: 'target/pmd.xml'), findBugs(pattern: 'target/findbugsXml.xml',useRankAsPriority:true)])
 			}
 		}
 		stage('Reports post') {
