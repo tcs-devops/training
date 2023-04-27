@@ -1,1 +1,46 @@
-
+stages:
+- stage: 
+    jobs:
+      job:
+        steps:
+        -   task: bash@3
+        
+        -   task maven@3
+            inputs:
+              mavenPOMFile: 'pom.xml'
+              goals: clean install 
+              findBugsAnalysis: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+- stage: Hello
+  jobs:
+  - job: 
+    steps:
+    - bash: echo "Hi all"
+  
+  stage: Good morning
+  - job: 
+    steps:
+    - bash: echo "So good, so good, so good"
+  
+  stage: Bye
+  - job: 
+    steps:
+    -script: echo Good night
+    displayName: 'Run a one-line-script'
+ 
+ stage: Build
+ displayName: Build Stage
+ jobs:
+ -  job: sh '''ls
+ 
+ 
+ stage: Test:
+ displayName: Testing
+ dependsOn: Build
+ condition: succeeded()
+ jobs:
+  job:
+   steps:
+    step:
+      task:
+     
