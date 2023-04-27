@@ -1,0 +1,25 @@
+trigger: RobertoRamirez
+   
+
+stages:
+- stage: Build
+  jobs:
+  - job: A
+    steps:
+    - script: 
+      echo "Building"
+      echo "Building finished"
+
+ - stage: maven test
+   jobs:
+   - job: test
+     steps:
+     - task: Maven@3
+       inputs:
+       mavenPOMFile: 'pom.xml'
+       mavenOptions:'-Xmx3072m' 
+       testResultsFiles: '**/surefire-reports/TEST-*.xml' 
+       javaHomeOption: 'JDKVersion' 
+       mavenVersionOption: 'Default'
+       publishResultFiles: '**/surefire-reports/TEST-*.xml'
+       goals: 'package' 
