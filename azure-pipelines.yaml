@@ -1,0 +1,62 @@
+trigger:
+ - IvanFlores
+
+pool:
+  vmImage: 'windows-latest'
+
+stages:
+ - Build
+   displayName: Build stage
+   jobs:
+   - job: building
+     steps:
+     - bash: echo 'Starting to build the app'
+   - job: maven install
+     steps:
+     - script: mvn clean install
+     - inputs:
+        - mavenPOMFile: 'pom.xml'
+        - goals: package
+        - testResultsFiles: 'target/surefire-reports/*.xml'
+
+ - Test
+   displayName: Test stage
+    jobs:
+     - job: testing
+        steps:
+	 script: mvn test
+
+- Lintin
+   displayName: Lintin stage
+    jobs:
+     - job: lintin
+        steps:
+	script: mvn pmd:pmd
+	script: mvn checkstyle:checkstyle
+	script: mvn findbugs:findbugs
+
+-Post
+   displayName: Post stage
+    jobs:
+     - job: post
+        steps:
+	 script: junit 'target/surefire-reports/*.xml'
+	 script: archiveArtifacts artifacts: '**/*.xml'
+	 script: archiveArtifacts artifacts: '**/*.jar'
+
+-Deploy
+   displayName: Deploy stage
+    jobs:
+     - job: starting deploy
+        steps:
+         - bash: echo 'Starting the deploy'
+     - job: deploying now
+	steps:
+         - bash: echo 'Docker created'
+
+-Prod
+   displayName: Prod stage
+    jobs:
+     - job: prod
+        steps:
+         - bash: echo 'App is prod ready'
