@@ -1,0 +1,37 @@
+resources:
+  repositories:
+  - repository: simple-java-maven-app # The name used to reference this repository in the checkout step
+    type: github
+    endpoint: github-service-connection
+    name: simple-java-maven-app
+    ref: refs/heads/master
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages: 
+  - stage: 'Build_Stage'
+    displayName: 'Build, Test, and Package Stage'
+
+    jobs:
+    - job: 'Build_Maven'
+      displayName: 'Build, Test, and Package Maven'
+
+      steps:
+	- checkout: simple-java-maven-app
+
+	- task: Maven@3
+  	  inputs:
+	    goals: 'clean install'
+	    checkStyleRunAnalysis: true 
+	    pmdRunAnalysis: true
+	    findBugsRunAnalysis: true
+ 	
+	- script: |
+	  mv tagert/*.jar  target/myapp/
+
+	- publish: $(System.DefaultWorkingDirectory)/target/*.jar
+	  artifact: my-app.jar
