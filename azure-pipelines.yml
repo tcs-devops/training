@@ -1,0 +1,26 @@
+jobs:
+  - task: Macen@3
+    inputs:
+      mavenVersionOption: "Default"
+      mavenAuthenticateFeed: false
+      mavenPomFile: "path/to/pom.xml"
+      goals: "install"
+  - job: Checkout
+    steps:
+      - checkout: git://github.com/jenkins-docs/simple-java-maven-app.git
+        displayName: "Checkout Git repository"
+        ref: refs/head/master
+  - job: Build
+    steps:
+      - script: npm install mvn
+  - job: Testing
+    steps:
+      - script: echo 'Results'
+  - job: PMD and Findbugs check
+    steps:
+      - script:
+        npm install pmd
+        npm install checkstyle
+        npm install findbugs
+        
+  - job: Reports post
