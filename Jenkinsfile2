@@ -43,6 +43,7 @@ pipeline {
       stage('Static Code Aanalysis')
       { steps {
          sh 'mvn clean install pmd:pmd findbugs:findbugs checkstyle:checkstyle'
+         recordIssues(tools: [checkStyle(pattern: 'target/checkstyle-result.xml'), pmdParser(pattern: 'target/pmd.xml'), findBugs(pattern: 'target/findbugsXml.xml',useRankAsPriority:true)])
          }
        }
     }    
