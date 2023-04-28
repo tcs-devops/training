@@ -1,47 +1,55 @@
+resources:
+    repositories:
+    - repository: simple-java-maven-app
+      type: github
+      endpoint: github-service-connection
+      name: simple-java-maven-app
+      ref: refs/heads/main
+
+trigger: 
+- AndresRamirez
+
+pool:
+    vmImage: 'ubuntu-latest'
+    
 stages:
-- stage: 
-    jobs:
-      job:
-        steps:
-        -   task: bash@3
+- stage:
+  displayName: 'Build, Test, and Package Stage'
+
+  jobs:
+  - job: 'Build_Maven'
+    displayName: 'Build, Test, and Package Maven'
+    
+    steps: 
+        - checkout: simple-java-maven-app
         
         -   task maven@3
             inputs:
-              mavenPOMFile: 'pom.xml'
-              goals: clean install 
+              goals: 'clean install'
+              checkStyleRunAnalysis: true
+              pmdRunAnalysis: true
               findBugsAnalysis: true
-              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        
+        - script: |
+	      mv tagert/*.jar  target/myapp/
+
+	    - publish: $(System.DefaultWorkingDirectory)/target/*.jar
+	      artifact: my-app.jar
+      
 - stage: Hello
   jobs:
-  - job: 
-    -script: echo Hi all
-     displayName: 'Run a one-line-script'
+  - steps: 
+    - script: echo Hi all
+      displayName: 'Run a one-line-script'
   
-  stage: Good morning
+- stage: Good morning
   - job: 
     steps:
-    -script: echo so good, so good, so good
-     displayName: 'Run a one-line-script'
+    - script: echo so good, so good, so good
+      displayName: 'Run a one-line-script'
      
-  stage: Bye
+- stage: Bye
   - job: 
     steps:
-    -script: echo Good night
-    displayName: 'Run a one-line-script'
- 
- stage: Build
- displayName: Build Stage
- jobs:
- -  job: sh '''ls
- 
- 
- stage: Test:
- displayName: Testing
- dependsOn: Build
- condition: succeeded()
- jobs:
-  job:
-   steps:
-    step:
-      task:
-     
+    - script: echo Good night
+      displayName: 'Run a one-line-script'
